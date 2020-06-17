@@ -193,7 +193,10 @@ class Flappy:
 
         # bird
         self.bird.flapWing()
-        self.bird.draw(self.SCREEN, 'dead')
+        if flag == 'over':
+            self.bird.draw(self.SCREEN, 'dead')
+        else:
+            self.bird.draw(self.SCREEN)
 
         pygame.display.update()
         self.FPSCLOCK.tick(self.FPS)
