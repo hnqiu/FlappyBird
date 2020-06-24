@@ -35,6 +35,8 @@ class Flappy:
 
     # welcome message
     msgXY = {}
+    # score
+    score = 0
 
     def __init__(self):
         """initialization of flappy bird"""
@@ -68,6 +70,7 @@ class Flappy:
         # reset
         self.bird.reset()
         self.pipes.clear()
+        self.score = 0
 
         while True:
             for event in pygame.event.get():
@@ -114,7 +117,7 @@ class Flappy:
                 pipeMidPos = pipe.x + pipe.width / 2
                 if pipeMidPos <= birdMidPos < pipeMidPos + self.SPEED:
                     self.SOUNDS['point'].play()
-                    self.bird.score += 1
+                    self.score += 1
 
             # update bird
             self.bird.update()
@@ -191,7 +194,7 @@ class Flappy:
         elif flag == 'over':
             self.SCREEN.blit(self.IMAGES['gameover'], (50, 180))
         if flag in ('play', 'over'):
-            self.showScore(self.bird.score)
+            self.showScore()
 
         # bird
         self.bird.flapWing()
@@ -204,9 +207,9 @@ class Flappy:
         self.FPSCLOCK.tick(self.FPS)
 
 
-    def showScore(self, score):
+    def showScore(self):
         """ displays score in center of screen """
-        scoreDigits = [int(x) for x in list(str(score))]
+        scoreDigits = [int(x) for x in list(str(self.score))]
         totalWidth = 0 # total width of all numbers to be printed
 
         for digit in scoreDigits:
@@ -265,7 +268,6 @@ class Bird:
     rate     =   3      # rotation rate
     flapACC  =  -9      # flap acceleration, constant
     flapped  =  False
-    score    =  0
 
     # image size
     width, height = {}, {}
@@ -298,7 +300,6 @@ class Bird:
         """ reset bird states """
         self.loopIter = 0
         self.wingIndex = 0
-        self.score = 0
         self.velY = -9
         self.rotation = 30
 
