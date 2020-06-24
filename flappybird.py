@@ -26,6 +26,7 @@ class Flappy:
     # game definitions
     SPEED = 4 # moving speed
     PIPEGAP = 100 # gap between upper and lower part of pipe
+    PIPEGAP_H = 100 # horizontal gap between adjacent pipes
     # image and sound dicts
     IMAGES, SOUNDS = {}, {}
 
@@ -88,7 +89,7 @@ class Flappy:
         """ Play the game """
         self.bird.softreset()
         pipe1 = self.createPipe(self.WIDTH + 200)
-        pipe2 = self.createPipe(int(1.5 * self.WIDTH + 200))
+        pipe2 = self.createPipe(self.WIDTH + 200 + pipe1.width + self.PIPEGAP_H)
         self.pipes = [pipe1, pipe2]
 
         while True:
@@ -166,7 +167,8 @@ class Flappy:
             p.move()
         # add new pipes
         if 0 < self.pipes[0].x < self.SPEED+1: # x==4
-            p = self.createPipe(self.WIDTH + 4)
+            diff = self.pipes[1].x - self.pipes[0].x
+            p = self.createPipe(self.pipes[1].x + diff)
             self.pipes.append(p)
         # remove old pipes
         if self.pipes[0].x < -self.pipes[0].width:
