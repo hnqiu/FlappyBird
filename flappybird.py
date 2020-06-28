@@ -38,7 +38,7 @@ class Flappy:
     # score
     score = 0
 
-    def __init__(self):
+    def __init__(self, mode):
         """initialization of flappy bird"""
         # init window
         pygame.init()
@@ -51,6 +51,9 @@ class Flappy:
         # welcome message
         self.msgXY = [int((self.WIDTH - self.IMAGES['message'].get_width()) /2),
                       int(self.HEIGHT * 0.12)]
+
+        # set moving speed
+        self.set_speed(mode)
 
         # construct objects
         baseXY = [0, int(self.HEIGHT * .79)]
@@ -146,6 +149,15 @@ class Flappy:
             self.bird.update()
             # draw sprites
             self.refresh('over')
+
+
+    def set_speed(self, m):
+        """
+        Set objects' (pipes & base) moving speed based on difficulty
+        If not presented use the default value
+        """
+        difficulty = {'easy': 4, 'median': 5, 'hard': 6}
+        self.SPEED = difficulty.get(m, 4)
 
 
     def createPipe(self, pos_x):
@@ -530,5 +542,19 @@ def asset(asset_dir):
     return IMAGES, SOUNDS
 
 
+def main(argv):
+    """
+    Main entrance
+    Game mode can be easy (default), median or hard
+    """
+    if len(argv) > 2:
+        print('Too many arguments')
+        return
+    mode = 'easy'
+    if len(argv) == 2:
+        mode = argv[1]
+    Flappy(mode)
+
+
 if __name__ == '__main__':
-    Flappy()
+    main(sys.argv)
