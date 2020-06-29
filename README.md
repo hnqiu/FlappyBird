@@ -20,6 +20,11 @@ cd FlappyBird/
 python3 -m pip install -r requirements.txt
 python3 flappybird.py --easy
 ```
+Game can be set in 3 modes: `easy`, `median` and `difficult`. Use
+```sh
+python3 flappybird.py -h
+```
+to get the usage information.
 
 ## Author
 - [hnqiu](https://github.com/hnqiu)
