@@ -549,7 +549,7 @@ def main(argv):
     """
     if len(argv) > 2:
         print('Too many arguments')
-        return
+        sys.exit(2)
     mode = 'easy'
     if len(argv) == 2:
         mode = argv[1]
