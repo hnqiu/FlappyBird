@@ -10,7 +10,18 @@ Flappy Bird game implementation
 
 import random
 import sys
+import argparse
 from itertools import cycle
+
+parser = argparse.ArgumentParser(usage='%(prog)s [-h]/[-opt]',
+                                 description='Play Flappy Bird Game',
+                                 allow_abbrev=False)
+group = parser.add_mutually_exclusive_group(required=True)
+group.add_argument('-e', '--easy', action='store_true', help='easy mode')
+group.add_argument('-m', '--median', action='store_true', help='median mode')
+group.add_argument('-d', '--difficult', action='store_true', help='hard mode')
+args = parser.parse_args()
+
 import pygame
 
 
@@ -156,7 +167,9 @@ class Flappy:
         Set objects' (pipes & base) moving speed based on difficulty
         If not presented use the default value
         """
-        difficulty = {'easy': 4, 'median': 5, 'hard': 6}
+        difficulty = {'-e': 4, '--easy': 4,
+                      '-m': 5, '--median': 5,
+                      '-d': 6, '--difficult': 6}
         self.SPEED = difficulty.get(m, 4)
 
 
@@ -542,19 +555,13 @@ def asset(asset_dir):
     return IMAGES, SOUNDS
 
 
-def main(argv):
+def main(mode):
     """
     Main entrance
-    Game mode can be easy (default), median or hard
+    Game mode can be easy, median or difficult
     """
-    if len(argv) > 2:
-        print('Too many arguments')
-        sys.exit(2)
-    mode = 'easy'
-    if len(argv) == 2:
-        mode = argv[1]
     Flappy(mode)
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main(sys.argv[1])

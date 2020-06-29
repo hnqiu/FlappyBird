@@ -18,7 +18,7 @@ This project was developed & tested on Ubuntu 16.04, using `python3.7.6`.
 git clone https://github.com/hnqiu/FlappyBird.git
 cd FlappyBird/
 python3 -m pip install -r requirements.txt
-python3 flappybird.py
+python3 flappybird.py --easy
 ```
 
 ## Author
