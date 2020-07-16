@@ -64,7 +64,7 @@ class Flappy:
                       int(self.HEIGHT * 0.12)]
 
         # set moving speed
-        self.set_speed(mode)
+        self.setSpeed(mode)
 
         # construct objects
         baseXY = [0, int(self.HEIGHT * .79)]
@@ -75,11 +75,11 @@ class Flappy:
 
         # main loop
         while True:
-            self.showWelcomeAnimation()
+            self.showWelcome()
             self.play()
-            self.showGameOverScreen()
+            self.gameOver()
 
-    def showWelcomeAnimation(self):
+    def showWelcome(self):
         """ Shows welcome screen animation of flappy bird """
         # reset
         self.bird.reset()
@@ -140,7 +140,7 @@ class Flappy:
             # draw sprites
             self.refresh('play')
 
-    def showGameOverScreen(self):
+    def gameOver(self):
         """ Show gameover screen """
         # play hit and die sounds
         self.SOUNDS['hit'].play()
@@ -162,7 +162,7 @@ class Flappy:
             self.refresh('over')
 
 
-    def set_speed(self, m):
+    def setSpeed(self, m):
         """
         Set objects' (pipes & base) moving speed based on difficulty
         If not presented use the default value
@@ -291,7 +291,7 @@ class Bird:
     ACCY     =   1      # constant
     rotation =   0
     rate     =   3      # rotation rate
-    flapACC  =  -9      # flap acceleration, constant
+    flapVel  =  -9      # flap speed, constant
     flapped  =  False
 
     # image size
@@ -350,7 +350,7 @@ class Bird:
     def update(self):
         """ update bird vel, pos & rotation """
         if self.flapped:
-            self.velY = self.flapACC
+            self.velY = self.flapVel
             self.rotation = 30
             self.flapped = False
         elif self.velY < self.velMAXY:
